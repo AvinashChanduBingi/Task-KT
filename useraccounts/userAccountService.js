@@ -47,7 +47,7 @@ await useraccount.save();
             .populate("accId") 
             .populate("userId") 
             .populate("dept");  
-          return JSON.stringify(userAccounts, null, 2);
+          return userAccounts;
         } catch (error) {
             console.log(`error in service layer ${error}`);
         }

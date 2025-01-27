@@ -8,6 +8,13 @@ fullName :
 mobileNo : {
     type : Number,
     required : true 
+},
+email :
+{
+    type : String
+},
+password : {
+    type : String
 }
 });
  const userModel = mongoose.model("user",userSchema);
