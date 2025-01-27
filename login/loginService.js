@@ -1,34 +1,46 @@
 const userModel = require("../user/userModel");
-const userAccountModel  = require("../useraccounts/userAccountModel");
+const accountModel  = require("../account/accountmodel");
 const jwt = require("jsonwebtoken");
+const customError = require("../ErrorHandlers/customError");
 require("dotenv").config();
 class LoginService
 {
- async loginCheckService(email,password)
+ async loginAuthenticateService(email,password,accountName)
  {
     try {
-        console.log("login check service layer in");
+        console.log("Inside Login Service : Login Authenticate service method");
+
+        /*checking if user is in database*/
          const user = await userModel.findOne({email:email});
+
+         const account = await accountModel.findOne({name : accountName });
+
+         if(!account) throw new customError("Invalid account Name",400);
          if(!user)
          {
-            console.log("user not found")
-             return {success : false ,message : "user not found"};
+            /*no user found in the database throwing error*/
+           throw new customError("User not found in the database",404);
          }
         if(user.password===password)
          {
-            console.log("user found")
-            const token =jwt.sign({  user : user._id}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
-              return {success : true, token};
+
+            /*User Authenticated and generating JWT token */
+            const token =jwt.sign({  user : user._id , account : account._id}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
+              return {
+               success : true,
+                token
+               };
          }
          else
          {
-            console.log(`${user.password} ${password}`)
-            console.log(" Invalid Password")
-              return {success : false , message : "Invalid Password"};
+            /* Password is incorrect , Throwing error*/
+            throw new customError("Password Incorrect",401);
+              
          }
          
     } catch (error) {
-         return {message :`Error in the service layer of the login ${error}`};
+        console.log(`inside Login Service catch : login Authenticate Service method Error : ${error}`);
+      throw new customError((error instanceof customError)?error.message:"Error  please try again",error.statusCode);
     }
  }
 
