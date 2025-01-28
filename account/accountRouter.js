@@ -4,11 +4,11 @@ const controller = require("./accountController");
 
 accountRouter.post("/addAccount",(req,res)=>
 {
-   controller.createAccountController(req,res,req.body);
+   controller.createAccount(req,res);
 });
 
 accountRouter.get("/getAccpountDetails",(req,res)=>{
-  controller.getAllAccountDetailsController(req,res);
+  controller.getAllAccountDetails(req,res);
 });
 
 module.exports = accountRouter;

@@ -13,7 +13,7 @@ class deptService
             const dept = new model(
                 {
                     name : data.name,
-                    accId : account._id,
+                    accId : data.account,
                 }
             );
                 
@@ -22,8 +22,8 @@ class deptService
             await dept.save();
          
             return{
-                messsage : "dept Created",
-                statusCode : 201
+                message : "dept Created",
+                status : true
             };
         
 

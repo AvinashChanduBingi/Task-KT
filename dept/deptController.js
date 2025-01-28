@@ -1,4 +1,5 @@
 const service = require("./deptService");
+const customError = require("../ErrorHandlers/customError");
 
 class deptController 
 {
@@ -17,7 +18,7 @@ class deptController
         } catch (error) {
             console.log(`Error in deptController.js : createdept ${error}`);
     
-            if(error instanceof CustomError)
+            if(error instanceof customError)
             {
                 return res.status(error.statusCode).json(
                     {
@@ -55,7 +56,7 @@ class deptController
         } catch (error) {
             console.log(`Error in deptController.js : getAllDepts method  ${error}`);
     
-            if(error instanceof CustomError)
+            if(error instanceof customError)
             {
                 return res.status(error.statusCode).json(
                     {
@@ -93,7 +94,7 @@ class deptController
         } catch (error) {
             console.log(`Error in deptController.js : updateDept method  ${error}`);
     
-            if(error instanceof CustomError)
+            if(error instanceof customError)
             {
                 return res.status(error.statusCode).json(
                     {
