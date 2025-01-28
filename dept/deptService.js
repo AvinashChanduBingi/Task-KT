@@ -9,6 +9,10 @@ class deptService
 
             console.log("Inside deptService.js -> createDept method");
 
+            const val = await model.findOne({accId:data.account,name:data.name});
+          
+            if(val) throw new customError("dept already exists",400);
+
             /*creating the Dept document using Name and Account id */
             const dept = new model(
                 {

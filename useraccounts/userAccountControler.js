@@ -12,7 +12,7 @@ class userAccountController
            const result = await servicelayer.createUserAccount(req.body);
            res.status(201).json(
             {
-                status:true,
+                status:result.status,
                 message : result.messsage
             }
            )
@@ -82,12 +82,12 @@ try {
     console.log("Inside UserAccount Controller -> updateUserAccount Method");
 
     /*Updating the UserAccounts  By using the Account id*/
-     await servicelayer.updateUserAccounts(req.query.id,req.body);
-
+     const result = await servicelayer.updateUserAccounts(req.query.id,req.body);
+    console.log();
      res.status(200).json(
         {
-             status : true,
-             message : "Succesfully Updated"
+             status : result.status,
+             message : result.message
         }
      )
 } catch (error) {

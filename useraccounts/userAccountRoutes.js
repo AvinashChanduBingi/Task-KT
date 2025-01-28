@@ -15,7 +15,7 @@ router.get("/getAllUserAccounts",(req,res,next)=>
 
 });
 
-router.put("/updateUseAccount",(req,res)=>
+router.put("/updateUserAccount",(req,res)=>
 {
 controller.updateUserAccount(req,res);
 });

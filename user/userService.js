@@ -26,7 +26,7 @@ class userService
         /*Dupliacation error -> user details already exist in the database*/
         if(error.code === 11000) throw new customError(`Details Arlready exists.value Should be unique .Duplicate Field : ${Object.keys(error.keyValue)}`,400);
 
-        throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    
+        throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    
        }
     }
 
@@ -50,7 +50,7 @@ class userService
 
             console.log(` Error in UserServer.js file, message :  ${error.message}`);
 
-            throw new customError((error instanceof customError)?error.message:"Error  please try again",error.statusCode);    
+            throw new customError((error instanceof customError)?error.message:"Error  please try again",error.statusCode||500);    
         }
     }
 
@@ -74,7 +74,7 @@ class userService
 
             console.log(`Error in userServer.js message : ${error} `);
 
-            throw new customError((error instanceof customError)?error.message:"Error  please try again",error.statusCode);    
+            throw new customError((error instanceof customError)?error.message:"Error  please try again",error.statusCode||500);    
         }
     }
 }

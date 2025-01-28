@@ -20,7 +20,7 @@ class accountservice
               /*Dupliacation error -> user details already exist in the database*/
               if(error.code === 11000) throw new customError(`Details Arlready exists.value Should be unique .Duplicate Field : ${Object.keys(error.keyValue)}`,400);
       
-              throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);  
+              throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);  
            }
     }
     async getAllAccountDetails(data)
@@ -40,7 +40,7 @@ class accountservice
               console.log(` Error in AccountService.js file, message :  ${error.message}`);
 
       
-              throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);  
+              throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);  
            }
     }
 }

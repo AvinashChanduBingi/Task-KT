@@ -25,7 +25,7 @@ class LoginService
          {
 
             /*User Authenticated and generating JWT token */
-            const token =jwt.sign({  user : user._id , account : account._id,}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3h" });
+            const token =jwt.sign({  user : user._id , email : user.email,account : account._id,}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "3h" });
               return {
                success : true,
                 token

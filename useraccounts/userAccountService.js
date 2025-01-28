@@ -14,8 +14,8 @@ try {
 
     let arr = new Set();
     let useraccount = new userAccountsModel();
-    /*checking if incoming data is present or not */
-if(data.dept === undefined && data.dept.length===0)
+    /*verifying if dept details is null */
+if(data.dept === undefined || data.dept.length===0)
 {
    /*retrivind dept details  using accountid*/
     const deptArr = await deptModel.find({accId : data.accId},{_id:1});
@@ -85,12 +85,9 @@ return{
         try {
             console.log("Inside UserAccount Service -> updateUserAccounts Method");
            
-            const user = userAccountsModel.find(id);
 
-            if(!user) throw new customError("User Not Found",404), 
-            
              /*Updating User account By using ID*/
-            await userAccountsModel.findByIdAndUpdate(id,userAccount);
+            await userAccountsModel.findByIdAndUpdate(id,userAccount, { new: true, runValidators: true });
             
             return(
                 {
