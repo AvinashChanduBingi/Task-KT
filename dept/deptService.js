@@ -33,7 +33,7 @@ class deptService
             /*Dupliacation error -> user details already exist in the database*/
         if(error.code === 11000) throw new customError(`Details Arlready exists.value Should be unique .Duplicate Field : ${Object.keys(error.keyValue)}`,400);
 
-    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    
+    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    
         }
     }
 
@@ -53,7 +53,7 @@ class deptService
         } catch (error) {
             console.log(`error in the deptService.js -> datAllDepts ${error}`);
 
-            throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    
+            throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    
         }
     }
 
@@ -65,6 +65,7 @@ class deptService
 
             /*Finding Dept by id and updating it*/
             await model.findByIdAndUpdate(id,dept);
+                        
             return {
                 status : true,
                 message :"updated Successfullly"
@@ -72,7 +73,7 @@ class deptService
         } catch (error) {
             console.log(`error in the deptService.js -> updateDept ${error}`);
 
-            throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    
+            throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    
         }
     }
 }

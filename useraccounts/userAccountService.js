@@ -51,7 +51,7 @@ return{
     /*Dupliacation error -> user details already exist in the database*/
     if(error.code === 11000) throw new customError(`Details Arlready exists.value Should be unique .Duplicate Field : ${Object.keys(error.keyValue)}`,400);
     
-    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    
+    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    
 }
     }
 
@@ -76,7 +76,7 @@ return{
         } catch (error) {
              console.log(`error in the UserAccountsService.js -> createUserAccounts ${error}`);
 
-    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    ;
+    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    ;
         }
     }
 
@@ -101,7 +101,7 @@ return{
         } catch (error) {
              console.log(`error in the UserAccountsService.js -> updateUserAccounts ${error}`);
 
-    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode);    
+    throw new customError((error instanceof customError)?error.message:"Error: Please Try Again",error.statusCode||500);    
         }
     }
 
