@@ -4,19 +4,17 @@ const router = express.Router();
 
 router.post("/createDept",(req,res)=>
 {
-controller.createdeptController(req,res,req.body);
+controller.createdept(req,res,req.body);
 });
 
 router.get("/getAllDept",(req,res)=>
 {
-    controller.getAllDeptController(req,res);
+    controller.getAllDepts(req,res);
 });
 
 router.put("/updateDept",(req,res)=>
 {
-    console.log(req.query.id);
-    console.log(req.body);
-   controller.updateDeptController(req,res,req.query.id,req.body);
+   controller.updateDept(req,res);
 });
 
 module.exports = router;

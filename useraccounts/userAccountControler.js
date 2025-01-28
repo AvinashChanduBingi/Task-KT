@@ -1,35 +1,112 @@
 const servicelayer = require("./userAccountService");
 class userAccountController
 {
-    async createUserAccountController(req,res,userAccount)
+    async createUserAccount(req,res)
     {
         try {
+            console.log("Inside UserAccount Controller -> getAllUserAccounts Method");
+
+            /*Creating User Account using Account id and User id*/
+           const result = await servicelayer.createUserAccount(req.body);
+           res.status(201).json(
+            {
+                status:true,
+                message : result.messsage
+            }
+           )
+        } catch (error) {
+            console.log(`Error in UserController.js  ${error}`);
+    
+            if(error instanceof CustomError)
+            {
+                return res.status(error.statusCode).json(
+                    {
+                        status : false,
+                        message : error.message || this.error
+                    }
+                )
+            }
             
-           await servicelayer.createUserAccountService(userAccount);
-           res.send("account Created").status(201);
-        } catch (error) {
-            console.log(`Error in the user account ${error}`);
+            return res.status(500).json(
+                {
+                    status: false,
+                    message :" Internal Server Error"
+                }
+            )
         }
     }
 
-    async getAllUserAccountsController(req,res)
+    async getAllUserAccounts(req,res)
     {
         try {
-        const data =  await  servicelayer.getAllUserAccountsService();
-        res.send(data);
+            console.log("Inside UserAccount Controller -> getAllUserAccounts Method");
+         
+        /*retriving data of all user accounts*/
+        const data =  await  servicelayer.getAllUserAccounts();
+
+        res.status(200).json(
+            {
+                status :true,
+                data :data
+
+            }
+        )
 
         } catch (error) {
-            console.log(`Error in the user account ${error}`);
+            console.log(`Error in UserController.js  ${error}`);
+    
+            if(error instanceof CustomError)
+            {
+                return res.status(error.statusCode).json(
+                    {
+                        status : false,
+                        message : error.message || this.error
+                    }
+                )
+            }
+            
+            return res.status(500).json(
+                {
+                    status: false,
+                    message :" Internal Server Error"
+                }
+            )
         }
     }
 
-    async updateUserAccountController(req,res,id,userAccount)
+    async updateUserAccount(req,res)
     {
 try {
-     await servicelayer.updateUserAccountsService(id,userAccount);
-     res.send("Updated Successfully")
+    console.log("Inside UserAccount Controller -> updateUserAccount Method");
+
+    /*Updating the UserAccounts  By using the Account id*/
+     await servicelayer.updateUserAccounts(req.query.id,req.body);
+
+     res.status(200).json(
+        {
+             status : true,
+             message : "Succesfully Updated"
+        }
+     )
 } catch (error) {
-    console.log(`Error in the user account ${error}`);
+    console.log(`Error in UserController.js  ${error}`);
+    
+    if(error instanceof CustomError)
+    {
+        return res.status(error.statusCode).json(
+            {
+                status : false,
+                message : error.message || this.error
+            }
+        )
+    }
+    
+    return res.status(500).json(
+        {
+            status: false,
+            message :" Internal Server Error"
+        }
+    )
 }
     }
 }

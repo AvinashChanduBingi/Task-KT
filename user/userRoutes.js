@@ -7,21 +7,19 @@ const UserRouter = express.Router();
 UserRouter.post("/createUser",(req,res)=>
 {
     console.log(req.body);
- controller.createUserController(req,res,req.body);
+ controller.createUser(req,res);
 }
 );
 
 UserRouter.get("/getAllUsers",(req,res)=>
 {
-    controller.getUsersController(req,res);
+    controller.getAllUsers(req,res);
 });
 UserRouter.put("/updateUser",(req,res)=>
 {
     console.log(req.body);
-    controller.updateUserController(req,res,req.query.id,req.body);
+    controller.updateUser(req,res);
 });
-
-UserRouter.get("/hello",)
 
 module.exports = UserRouter;
 

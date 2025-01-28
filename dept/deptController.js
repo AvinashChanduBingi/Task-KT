@@ -2,34 +2,113 @@ const service = require("./deptService");
 
 class deptController 
 {
-    async createdeptController(req,res,data)
+    async createdept(req,res)
     {
         try {
-            await service.createDeptService(data);
-            res.send("created").status(201);
+            console.log("Inside deptControlletr.js -> createDept method");
+             
+            const result = await service.createDept(req.body);
+            res.status(201).json(
+                {
+                    status: result.status,
+                    message :result.message
+                }
+            )
         } catch (error) {
-            console.log(`error in controller ${error}`);
+            console.log(`Error in deptController.js : createdept ${error}`);
+    
+            if(error instanceof CustomError)
+            {
+                return res.status(error.statusCode).json(
+                    {
+                        status : false,
+                        message : error.message || this.error
+                    }
+                )
+            }
+            
+            return res.status(500).json(
+                {
+                    status: false,
+                    message :" Internal Server Error"
+                }
+            )
         }
     }
 
-    async getAllDeptController(req,res)
+    async getAllDepts(req,res)
     {
         try {
-           const data = await service.getAllDeptService();
-           res.send(data);
+
+            console.log("Inside deptControlletr.js -> getAllDepts method");
+
+            /*retriving all documents of Dept*/
+           const result = await service.getAllDepts();
+
+         res.status(200).json(
+            {
+              status : result.status ,
+              data :  result.deptdata 
+            }
+         )
+           
         } catch (error) {
-            console.log(`error in controller ${error}`);
+            console.log(`Error in deptController.js : getAllDepts method  ${error}`);
+    
+            if(error instanceof CustomError)
+            {
+                return res.status(error.statusCode).json(
+                    {
+                        status : false,
+                        message : error.message || this.error
+                    }
+                )
+            }
+            
+            return res.status(500).json(
+                {
+                    status: false,
+                    message :" Internal Server Error"
+                }
+            ) 
         
         }
     }
 
-    async updateDeptController(req,res,id,dept)
+    async updateDept(req,res)
     {
         try {
-            await service.updateDeptService(id,dept);
-            res.send("updated dept details");
+            console.log("Inside deptControlletr.js -> getAllDepts method");
+
+            /*updating dept using Id */
+            const result =await service.updateDept(req.id,req.body);
+
+
+            res.status(200).json(
+                {
+                   status : result.status,
+                message : result.message 
+                }
+            )
         } catch (error) {
-            console.log(`error in controller ${error}`);
+            console.log(`Error in deptController.js : updateDept method  ${error}`);
+    
+            if(error instanceof CustomError)
+            {
+                return res.status(error.statusCode).json(
+                    {
+                        status : false,
+                        message : error.message || this.error
+                    }
+                )
+            }
+            
+            return res.status(500).json(
+                {
+                    status: false,
+                    message :" Internal Server Error"
+                }
+            ) 
         }
     }
 }

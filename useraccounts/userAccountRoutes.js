@@ -5,24 +5,20 @@ const router = express.Router();
 
 router.post("/createUserAccount",(req,res)=>
 {
-controller.createUserAccountController(req,res,req.body);
+controller.createUserAccount(req,res);
 });
 
-router.get("/getAllUserAccounts",helo,(req,res,next)=>
+router.get("/getAllUserAccounts",(req,res,next)=>
 {
-    // controller.getAllUserAccountsController(req,res);
-    console.log("hello  1");
+     controller.getAllUserAccounts(req,res);
+   
 
 });
 
 router.put("/updateUseAccount",(req,res)=>
 {
-controller.updateUserAccountController(req,res,req.query.id,req.body);
+controller.updateUserAccount(req,res);
 });
 
-function helo(req,res,next)
-{
-console.log("hello");
-res.send("hello");
-}
+
 module.exports = router;

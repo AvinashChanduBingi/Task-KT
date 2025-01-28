@@ -14,7 +14,6 @@ class jwtVerify
   /*Verifing the user JWT token */
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, data) => {
 
-    console.log(data.account);
     if (err) {
       return res.status(403).json({ message: "Invalid token" });
     }

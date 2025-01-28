@@ -3,15 +3,19 @@ const userSchema = mongoose.Schema({
 fullName :
 {
     type : String,
-    required : true
+    required : true,
+    unique : true
 },
 mobileNo : {
     type : Number,
-    required : true 
+    required : true,
+    unique : true
 },
 email :
 {
-    type : String
+    type : String,
+    required : true,
+    unique : true
 },
 password : {
     type : String
