@@ -1,4 +1,6 @@
 const servicelayer = require("./userAccountService");
+const customError = require("../ErrorHandlers/customError");
+
 class userAccountController
 {
     async createUserAccount(req,res)
@@ -17,7 +19,7 @@ class userAccountController
         } catch (error) {
             console.log(`Error in UserController.js  ${error}`);
     
-            if(error instanceof CustomError)
+            if(error instanceof customError)
             {
                 return res.status(error.statusCode).json(
                     {
@@ -55,7 +57,7 @@ class userAccountController
         } catch (error) {
             console.log(`Error in UserController.js  ${error}`);
     
-            if(error instanceof CustomError)
+            if(error instanceof customError)
             {
                 return res.status(error.statusCode).json(
                     {
@@ -91,7 +93,7 @@ try {
 } catch (error) {
     console.log(`Error in UserController.js  ${error}`);
     
-    if(error instanceof CustomError)
+    if(error instanceof customError)
     {
         return res.status(error.statusCode).json(
             {

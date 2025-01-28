@@ -3,7 +3,6 @@ const accountmodel = require("../account/accountmodel");
 const deptModel = require("../dept/deptModel");
 const userAccountsModel = require("./userAccountModel");
 const customError = require("../ErrorHandlers/customError");
-const CustomError = require("../ErrorHandlers/customError");
 class userAccountservice
 {
 
@@ -14,28 +13,28 @@ try {
     console.log("Inside UserAccount Service -> CreateUserAccount Method");
 
     let arr = new Set();
-    let useraccount = new model();
+    let useraccount = new userAccountsModel();
     /*checking if incoming data is present or not */
-if(data.dept === undefined && data.dept.length==0)
+if(data.dept === undefined && data.dept.length===0)
 {
    /*retrivind dept details  using accountid*/
     const deptArr = await deptModel.find({accId : data.accId},{_id:1});
 
-    if(!deptArr) throw new CustomError("No depts present!",400), 
+    if(!deptArr) throw new customError("No depts present!",400), 
 
     
     deptArr.map(obj => {
         arr.add(obj._id.toString());
     });
 
-  useraccount = new model({
+  useraccount = new userAccountsModel({
     accId : data.accId,
     userId : data.userId,
     dept : arr
 });
 }
 else{
-      useraccount = new model(data);
+      useraccount = new userAccountsModel(data);
 }
 
 await useraccount.save();
@@ -88,7 +87,7 @@ return{
            
             const user = userAccountsModel.find(id);
 
-            if(!user) throw new CustomError("User Not Found",404), 
+            if(!user) throw new customError("User Not Found",404), 
             
              /*Updating User account By using ID*/
             await userAccountsModel.findByIdAndUpdate(id,userAccount);
